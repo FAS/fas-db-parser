@@ -1,0 +1,53 @@
+{
+  "name": "fas-db-parser",
+  "version": "0.0.1",
+  "description": "Automatic fetching and parsing products from FAS database",
+  "homepage": "https://github.com/FAS/fas-db-parser",
+  "author": "Mr. Hyde <npm@2bad.me>",
+  "main": "dist/fas-db-parser.js",
+  "jsnext:main": "lib/index.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/FAS/fas-db-parser.git"
+  },
+  "bugs": {
+    "url": "https://github.com/FAS/fas-db-parser/issues"
+  },
+  "license": "Copyright 2015 LotusTM",
+  "keywords": [
+    "parsing",
+    "scrapping",
+    "request"
+  ],
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "cheerio": "^0.19.0",
+    "moment": "^2.10.6",
+    "request": "^2.65.0"
+  },
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "babel-eslint": "^4.1.3",
+    "mocha": "^2.3.3",
+    "rollup": "^0.19.1",
+    "standard": "^5.3.1"
+  },
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "mkdir dist && rollup lib/index.js | babel -m umd --module-id fasDBParser -o dist/fas-db-parser.js",
+    "pretest": "standard",
+    "test": "mocha --compilers js:babel/register --recursive test",
+    "prepublish": "npm run build && npm test"
+  },
+  "engines": {
+    "node": ">=4.0"
+  },
+  "standard": {
+    "parser": "babel-eslint"
+  }
+}

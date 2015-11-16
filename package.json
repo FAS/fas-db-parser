@@ -1,6 +1,6 @@
 {
   "name": "fas-db-parser",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Automatic fetching and parsing products from FAS database",
   "homepage": "https://github.com/FAS/fas-db-parser",
   "author": "Mr. Hyde <npm@2bad.me>",

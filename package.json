@@ -1,6 +1,6 @@
 {
   "name": "fas-db-parser",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Automatic fetching and parsing products from FAS database",
   "homepage": "https://github.com/FAS/fas-db-parser",
   "author": "Mr. Hyde <npm@2bad.me>",
@@ -28,7 +28,9 @@
     "bluebird": "^3.0.5",
     "chalk": "^1.1.1",
     "cheerio": "^0.19.0",
+    "debug": "^2.2.0",
     "jschardet": "^1.4.1",
+    "log-symbols": "^1.0.2",
     "moment": "^2.10.6",
     "request-rate-limiter": "^0.3.1",
     "striptags": "^2.0.4"

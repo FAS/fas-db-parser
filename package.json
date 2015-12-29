@@ -33,12 +33,13 @@
     "jschardet": "^1.4.1",
     "log-symbols": "^1.0.2",
     "moment": "^2.10.6",
-    "request-rate-limiter": "^0.3.1",
+    "promise-queue": "^2.2.0",
+    "request": "^2.67.0",
     "striptags": "^2.0.4"
   },
   "devDependencies": {
     "babel-cli": "^6.3.17",
-    "babel-eslint": "^4.1.6",
+    "babel-eslint": "^5.0.0-beta6",
     "babel-preset-es2015-node5": "^1.1.1",
     "babel-preset-stage-3": "^6.3.13",
     "babel-register": "^6.3.13",

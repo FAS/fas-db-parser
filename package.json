@@ -25,16 +25,12 @@
     "dist"
   ],
   "dependencies": {
-    "better-log": "^1.3.3",
     "bluebird": "^3.4.1",
-    "chalk": "^1.1.3",
     "cheerio": "^0.20.0",
-    "debug": "^2.2.0",
     "iconv-lite": "^0.4.13",
-    "jschardet": "^1.4.1",
+    "intel": "^1.1.1",
     "jsonfile": "^2.3.1",
     "lodash": "^4.13.1",
-    "log-symbols": "^1.0.2",
     "moment": "^2.14.1",
     "natural-sort": "^1.0.0",
     "promise-queue": "^2.2.3",
@@ -46,8 +42,8 @@
     "babel-cli": "^6.10.1",
     "babel-eslint": "^6.1.2",
     "babel-preset-es2015-node5": "^1.2.0",
+    "babel-preset-stage-2": "^6.11.0",
     "babel-preset-stage-3": "^6.11.0",
-    "babel-register": "^6.9.0",
     "mocha": "^2.5.3",
     "nodemon": "^1.9.2",
     "should": "^10.0.0",
@@ -67,7 +63,8 @@
   "babel": {
     "presets": [
       "es2015-node5",
-      "stage-3"
+      "stage-3",
+      "stage-2"
     ]
   },
   "standard": {

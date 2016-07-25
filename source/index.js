@@ -1,4 +1,4 @@
-import Database from './lib/database'
+import Database from './database'
 
 let de = new Database(1, 'de', 'Deutsch', 'ISO-8859-1')
 let en = new Database(2, 'en', 'Englisch', 'ISO-8859-1')

@@ -16,8 +16,7 @@ export default class Database {
     this.parsed = {
       catalog: {
         pages: [],
-        data: [],
-        total: 0
+        data: []
       },
       products: {
         pages: [],
@@ -50,8 +49,8 @@ export default class Database {
     const total = div.match(/[\n\r].*von\s*([\d]*)/)[1]
 
     if (total) {
-      this.parsed.catalog.total = total
-      this.log.info(`Total products: ${this.parsed.catalog.total}`)
+      this.parsed.products.total = total
+      this.log.info(`Total products: ${this.parsed.products.total}`)
     } else {
       this.log.error(new Error('Unable to parse total products amount'))
     }
@@ -63,16 +62,16 @@ export default class Database {
   async _generateCatalogPagesUrl () {
     let offset = 0
 
-    while (offset < this.parsed.catalog.total) {
+    while (offset < this.parsed.products.total) {
       this.parsed.catalog.pages.push(this._generateCatalogPageUrl(offset))
       // skip to the next page since there is only 20 products per page
       offset += PRODUCTSPERPAGE
 
       // uncomment for debugging
-      // if (offset === 500) break
+      if (offset === 500) break
     }
 
-    this.log.info(`Total pages: ${this.parsed.catalog.pages.length}`)
+    this.log.info(`Total catalog pages: ${this.parsed.catalog.pages.length}`)
   }
 
   /**
@@ -85,7 +84,7 @@ export default class Database {
       return this.request.get(url)
       .then(($) => {
         this.parsed.catalog.data.push($)
-        this.log.debug(`${this.parsed.catalog.data.length}/${this.parsed.catalog.pages.length} pages fetched`)
+        this.log.debug(`Fetched catalog pages: ${this.parsed.catalog.data.length}/${this.parsed.catalog.pages.length}`)
       })
     })
 
@@ -115,7 +114,7 @@ export default class Database {
       })
     })
 
-    this.log.info(`Parsed products: ${this.products.size}`)
+    this.log.info(`Parsed products total: ${this.products.size}/${this.parsed.products.total}`)
   }
 
   /**

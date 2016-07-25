@@ -2,7 +2,7 @@ import logger from './logger'
 import Request from './request'
 import jsonFile from 'jsonfile'
 
-const LISTURL = '/paging_artikel/B//@'
+const CATALOGURL = '/paging_artikel/B//@'
 const PRODUCTURL = '/web_artikeldetail'
 const PRODUCTSPERPAGE = 20
 
@@ -30,7 +30,7 @@ export default class Database {
   }
 
   _generateCatalogPageUrl (offset = 0) {
-    return `${LISTURL}//${offset}//${this.id}`
+    return `${CATALOGURL}//${offset}//${this.id}`
   }
 
   _generateProductPageUrl (id) {

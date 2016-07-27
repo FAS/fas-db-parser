@@ -33,7 +33,6 @@
     "lodash": "^4.14.0",
     "moment": "^2.14.1",
     "natural-sort": "^1.0.0",
-    "promise-queue": "^2.2.3",
     "request": "^2.74.0",
     "request-promise": "^4.0.2",
     "striptags": "^2.1.1"

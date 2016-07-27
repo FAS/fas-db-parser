@@ -1,12 +1,8 @@
 import cheerio from 'cheerio'
 import iconv from 'iconv-lite'
-import Queue from 'promise-queue'
 import request from 'request-promise'
 import manifest from './../package.json'
 import config from './../config.json'
-
-const MAXCONCURRENT = 10
-const MAXQUEUE = Infinity
 
 export default class Request {
 
@@ -27,20 +23,17 @@ export default class Request {
         return cheerio.load(body)
       }
     }
-    this.queue = new Queue(MAXCONCURRENT, MAXQUEUE)
   }
 
   /**
-   * Create Promise Request and add it to the queue
+   * Request data from remote url
    * @param  {String} uri
    * @return {Promise}
    */
   get (uri) {
     this.options.url = `${config.url}${uri}`
 
-    let pr = () => request(this.options).then(($) => $)
-
-    return this.queue.add(pr)
+    return request(this.options)
       .then(($) => $)
       .catch((err) => console.log(err))
   }

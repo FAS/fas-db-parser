@@ -1,10 +1,12 @@
 import logger from './logger'
 import Request from './request'
 import jsonFile from 'jsonfile'
+import Promise from 'bluebird'
 
 const CATALOGURL = '/paging_artikel/B//@'
 const PRODUCTURL = '/web_artikeldetail'
 const PRODUCTSPERPAGE = 20
+const MAXCONCURRENTREQUESTS = 10
 
 export default class Database {
 
@@ -80,15 +82,13 @@ export default class Database {
   async _getCatalogData () {
     this.log.info('Start fetching catalog data')
 
-    let promises = this.parsed.catalog.pages.map((url) => {
+    await Promise.map(this.parsed.catalog.pages, (url) => {
       return this.request.get(url)
       .then(($) => {
         this.parsed.catalog.data.push($)
         this.log.debug(`Fetched catalog pages: ${this.parsed.catalog.data.length}/${this.parsed.catalog.pages.length}`)
       })
-    })
-
-    await Promise.all(promises)
+    }, { concurrency: MAXCONCURRENTREQUESTS })
   }
 
   /**

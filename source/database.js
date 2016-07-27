@@ -121,7 +121,7 @@ export default class Database {
    * Save products list to json file
    */
   async _saveToFile () {
-    jsonFile.writeFileSync(`./db/products.${this.code}.json`, this.products, {spaces: 2})
+    jsonFile.writeFileSync(`./build/db/products.${this.code}.json`, this.products, {spaces: 2})
   }
 
 /**

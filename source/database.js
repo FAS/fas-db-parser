@@ -73,7 +73,7 @@ export default class Database {
       if (offset === 500) break
     }
 
-    this.log.info(`Total catalog pages: ${this.parsed.catalog.pages.length}`)
+    this.log.info(`Generated catalog pages: ${this.parsed.catalog.pages.length}`)
   }
 
   /**
@@ -118,6 +118,16 @@ export default class Database {
   }
 
   /**
+   * Generate links for each product page and store them in an array
+   */
+  async _generateProductPagesUrl () {
+    this.products.forEach((value, key) => {
+      this.parsed.products.pages.push(this._generateProductPageUrl(key))
+    })
+    this.log.info(`Generated product pages: ${this.parsed.products.pages.length}/${this.products.size}/${this.parsed.products.total}`)
+  }
+
+  /**
    * Save products list to json file
    */
   async _saveToFile () {
@@ -135,7 +145,7 @@ export default class Database {
       await this._generateCatalogPagesUrl()
       await this._getCatalogData()
       await this._parseCatalogData()
-      // await this._generateProductPagesUrl()
+      await this._generateProductPagesUrl()
       // await this._getProductData()
       // await this._parseProductData()
       await this._saveToFile()

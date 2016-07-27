@@ -59,7 +59,7 @@ export default class Database {
   }
 
   /**
-   * Generate link for each page of catalog and store them in an array
+   * Generate link for each page of catalog
    */
   async _generateCatalogPagesUrl () {
     let offset = 0
@@ -77,7 +77,7 @@ export default class Database {
   }
 
   /**
-   * Request every page of catalog and parse products related information
+   * Request every page of catalog
    */
   async _getCatalogData () {
     this.log.info('Start fetching catalog data')
@@ -118,13 +118,28 @@ export default class Database {
   }
 
   /**
-   * Generate links for each product page and store them in an array
+   * Generate links for each product page
    */
-  async _generateProductPagesUrl () {
+  async _generateProductsPagesUrl () {
     this.products.forEach((value, key) => {
       this.parsed.products.pages.push(this._generateProductPageUrl(key))
     })
     this.log.info(`Generated product pages: ${this.parsed.products.pages.length}/${this.products.size}/${this.parsed.products.total}`)
+  }
+
+  /**
+   * Request every product page
+   */
+  async _getProductsData () {
+    this.log.info('Start fetching products data')
+
+    await Promise.map(this.parsed.products.pages, (url) => {
+      return this.request.get(url)
+      .then(($) => {
+        this.parsed.products.data.push($)
+        this.log.debug(`Fetched products pages: ${this.parsed.products.data.length}/${this.parsed.products.pages.length}`)
+      })
+    }, { concurrency: MAXCONCURRENTREQUESTS })
   }
 
   /**
@@ -145,8 +160,8 @@ export default class Database {
       await this._generateCatalogPagesUrl()
       await this._getCatalogData()
       await this._parseCatalogData()
-      await this._generateProductPagesUrl()
-      // await this._getProductData()
+      await this._generateProductsPagesUrl()
+      await this._getProductsData()
       // await this._parseProductData()
       await this._saveToFile()
     } catch (err) {

@@ -2,6 +2,8 @@ import logger from './logger'
 import Request from './request'
 import jsonFile from 'jsonfile'
 import Promise from 'bluebird'
+import he from 'he'
+import strip from 'striptags'
 
 const CATALOGURL = '/paging_artikel/B//@'
 const PRODUCTURL = '/web_artikeldetail'
@@ -99,14 +101,14 @@ export default class Database {
 
     this.parsed.catalog.data.forEach(($) => {
       // slice first two and last table since they do not contain data
-      let $tables = $('div > table').slice(2, -1)
+      const $tables = $('div > table').slice(2, -1)
 
       $tables.each((index, element) => {
         let product = {}
-        product.id = $('td > a > b > strong.text', element).html().trim()
+        product.id = $('td > a > b > strong.text', element).text().trim()
         // product names for russian locale wrapped in <p> tag
         product.name = $('td', element).eq(1).text().trim() || $('td > p', element).text().trim()
-        product.price = $('td > div.text', element).html().trim()
+        product.price = $('td > div.text', element).text().trim()
 
         this.products.set(product.id, product)
 
@@ -142,6 +144,27 @@ export default class Database {
     }, { concurrency: MAXCONCURRENTREQUESTS })
   }
 
+  async _parseProductData () {
+    this.log.info('Start parsing product data')
+
+    this.parsed.products.data.forEach(($) => {
+      let product = {}
+      const $data = $('div > table:nth-child(3)')
+
+      product.id = $data.find('td:nth-child(1) > b > strong').text().trim()
+      product.name = strip(he.decode($data.find('td:nth-child(2)').text())).trim()
+      product.price = $data.find('td:nth-child(3) > div').text().trim()
+      product.weight = $data.find('td:nth-child(4) > div').text().trim()
+      product.description = he.decode($('table.text > tr > td > p').html())
+
+      this.products.set(product.id, product)
+
+      this.log.verbose('Product: %j', product)
+    })
+
+    this.log.info(`Parsed products total: ${this.products.size}/${this.parsed.products.total}`)
+  }
+
   /**
    * Save products list to json file
    */
@@ -162,7 +185,7 @@ export default class Database {
       await this._parseCatalogData()
       await this._generateProductsPagesUrl()
       await this._getProductsData()
-      // await this._parseProductData()
+      await this._parseProductData()
       await this._saveToFile()
     } catch (err) {
       this.log.error(err)

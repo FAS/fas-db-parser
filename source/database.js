@@ -156,6 +156,17 @@ export default class Database {
       product.weight = $data.find('td:nth-child(4) > div').text().trim()
       product.description = he.decode($('table.text > tr > td > p').html())
 
+      // normalize product.id and check for collisions
+      const fixedId = Math.abs(product.id)
+      if (product.id !== fixedId) {
+        this.products.delete(product.id)
+        product.id = fixedId
+      }
+      if (this.products.get(product.id)) {
+        this.log.warn(`Detected collision for product.id: ${product.id}`)
+        product.id = `${fixedId}~`
+      }
+
       this.products.set(product.id, product)
 
       this.log.verbose('Product: %j', product)

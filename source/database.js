@@ -1,9 +1,10 @@
-import logger from './logger'
-import Request from './request'
-import jsonFile from 'jsonfile'
-import Promise from 'bluebird'
 import he from 'he'
 import strip from 'striptags'
+import jsonFile from 'jsonfile'
+import Promise from 'bluebird'
+import logger from './logger'
+import Request from './request'
+import strMapToObj from './utils/map'
 
 const CATALOGURL = '/paging_artikel/B//@'
 const PRODUCTURL = '/web_artikeldetail'
@@ -166,7 +167,9 @@ export default class Database {
    * Save products list to json file
    */
   async _saveToFile () {
-    jsonFile.writeFileSync(`./build/db/products.${this.code}.json`, this.products, {spaces: 2})
+    // convert string Map to Object
+    let obj = strMapToObj(this.products)
+    jsonFile.writeFileSync(`./build/db/products.${this.code}.json`, obj, {spaces: 2})
   }
 
 /**

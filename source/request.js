@@ -37,9 +37,9 @@ export default class Request {
       .then(($) => $)
       .catch((err) => {
         if (err.cause.code === 'ETIMEDOUT') {
-          throw new Error ('Target server is currently down or not responding')
+          throw new Error('Target server is currently down or not responding')
         } else {
-         console.log(err)
+          console.log(err)
         }
       })
   }

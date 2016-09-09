@@ -106,9 +106,6 @@ export default class Database {
       $tables.each((index, element) => {
         let product = {}
         product.id = $('td > a > b > strong.text', element).text().trim()
-        // product names for russian locale wrapped in <p> tag
-        product.name = $('td', element).eq(1).text().trim() || $('td > p', element).text().trim()
-        product.price = $('td > div.text', element).text().trim()
 
         this.products.set(product.id, product)
 

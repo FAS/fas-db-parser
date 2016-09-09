@@ -1,7 +1,8 @@
 import he from 'he'
 import strip from 'striptags'
-import jsonFile from 'jsonfile'
 import Promise from 'bluebird'
+import jsonFile from 'jsonfile'
+import sort from 'sort-object'
 import logger from './logger'
 import Request from './request'
 import strMapToObj from './utils/map'
@@ -169,6 +170,7 @@ export default class Database {
   async _saveToFile () {
     // convert string Map to Object
     let obj = strMapToObj(this.products)
+    obj = sort(obj)
     jsonFile.writeFileSync(`./build/db/products.${this.code}.json`, obj, {spaces: 2})
   }
 

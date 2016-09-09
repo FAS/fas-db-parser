@@ -56,7 +56,7 @@ export default class Database {
 
     if (total) {
       this.parsed.products.total = total
-      this.log.info(`Total products: ${this.parsed.products.total}`)
+      this.log.info(`Total products in database: ${this.parsed.products.total}`)
     } else {
       this.log.error(new Error('Unable to parse total products amount'))
     }
@@ -115,7 +115,7 @@ export default class Database {
       })
     })
 
-    this.log.info(`Parsed products total: ${this.products.size}/${this.parsed.products.total}`)
+    this.log.info(`Parsed catalog pages: ${Math.floor(this.products.size / PRODUCTSPERPAGE)}/${Math.floor(this.parsed.products.total / PRODUCTSPERPAGE)}`)
   }
 
   /**

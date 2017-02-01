@@ -1,5 +1,7 @@
 # fas-db-parser
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/FAS/fas-db-parser.svg?token=67f878538e82ce00d529dd72a1bb22ddb693f9b910cc56e5f28ee279ebc92e63)](https://greenkeeper.io/)
+
 Automatic fetching and parsing products from FAS database
 
 [![Travis build status](http://img.shields.io/travis/FAS/fas-db-parser.svg?style=flat)](https://travis-ci.org/FAS/fas-db-parser)

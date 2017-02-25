@@ -153,7 +153,7 @@ export default class Database {
       product.id = $data.find('td:nth-child(1) > b > strong').text().trim()
       product.name = strip(he.decode($data.find('td:nth-child(2)').text())).trim()
       product.price = $data.find('td:nth-child(3) > div').text().trim()
-      product.weight = $data.find('td:nth-child(4) > div').text().trim()
+      product.amount = $data.find('td:nth-child(4) > div').text().trim()
       product.description = he.decode($('table.text > tr > td > p').html())
 
       // normalize product.id and check for collisions

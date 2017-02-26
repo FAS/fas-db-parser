@@ -10,7 +10,7 @@ import {strMapToObj} from './utils/map'
 const CATALOGURL = '/paging_artikel/B//@'
 const PRODUCTURL = '/web_artikeldetail'
 const PRODUCTSPERPAGE = 20
-const MAXCONCURRENTREQUESTS = 10
+const MAXCONCURRENTREQUESTS = 20
 
 export default class Database {
 

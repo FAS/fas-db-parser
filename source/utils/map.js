@@ -1,3 +1,7 @@
+/**
+ * Convert JavaScript Map to Object
+ * note: Map should contain only String values
+ */
 export function strMapToObj (strMap) {
   let obj = Object.create(null)
   for (let [k, v] of strMap) {

@@ -74,7 +74,7 @@ export default class Database {
       offset += PRODUCTSPERPAGE
 
       // uncomment for debugging
-      if (offset === 500) break
+      // if (offset === 500) break
     }
 
     this.log.info(`Generated catalog pages: ${this.parsed.catalog.pages.length}`)

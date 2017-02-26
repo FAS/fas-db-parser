@@ -31,8 +31,10 @@ export default class Request {
     return request(this.options)
       .then(($) => $)
       .catch((err) => {
-        if (err.cause.code === 'ETIMEDOUT') {
-          throw new Error('Target server is currently down or not responding')
+        if (err.statusCode) {
+          throw new Error(`Unable to get page content: Error code ${err.statusCode} (page: ${this.options.url})`)
+        } else if (err.cause.code === 'ETIMEDOUT') {
+          throw new Error(`Target server is currently down or not responding (page: ${this.options.url})`)
         } else {
           console.log(err)
         }

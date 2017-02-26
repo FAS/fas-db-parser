@@ -28,7 +28,6 @@
     "bluebird": "3.4.7",
     "cheerio": "0.22.0",
     "he": "1.1.1",
-    "iconv-lite": "0.4.15",
     "intel": "1.1.2",
     "jsonfile": "2.4.0",
     "natural-sort": "1.0.0",

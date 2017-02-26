@@ -1,12 +1,11 @@
 import cheerio from 'cheerio'
-import iconv from 'iconv-lite'
 import request from 'request-promise'
 import manifest from './../package.json'
 import config from './../config.json'
 
 export default class Request {
 
-  constructor (encoding) {
+  constructor () {
     this.options = {
       auth: {
         user: config.user,
@@ -15,11 +14,7 @@ export default class Request {
       headers: {
         'User-Agent': `${manifest.name} v${manifest.version}`
       },
-      // disable request encoding to handle it manualy
-      encoding: null,
-      // decode body and return cheerio object
       transform: (body) => {
-        body = iconv.decode(body, encoding)
         return cheerio.load(body)
       }
     }

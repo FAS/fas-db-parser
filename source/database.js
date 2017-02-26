@@ -14,7 +14,7 @@ const MAXCONCURRENTREQUESTS = 10
 
 export default class Database {
 
-  constructor (id, code, name, encoding) {
+  constructor (id, code, name) {
     this.id = id
     this.code = code
     this.name = name
@@ -31,7 +31,7 @@ export default class Database {
       }
     }
 
-    this.request = new Request(encoding)
+    this.request = new Request()
     this.log = logger.getLogger(`klpt.${this.code}`)
   }
 

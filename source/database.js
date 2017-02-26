@@ -182,7 +182,7 @@ export default class Database {
     // convert string Map to Object
     let obj = strMapToObj(this.products)
     obj = sort(obj)
-    jsonFile.writeFileSync(`./build/db/products.${this.code}.json`, obj, {spaces: 2})
+    jsonFile.writeFileSync(`./db/products.${this.code}.json`, obj, {spaces: 2})
   }
 
 /**

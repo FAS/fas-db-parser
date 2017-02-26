@@ -45,6 +45,7 @@
     "standard": "8.6.0"
   },
   "scripts": {
+    "prestart": "rm -rf logs build && mkdir logs build && npm run build",
     "start": "node build/index.js",
     "build": "babel source -d build",
     "test": "standard --verbose | snazzy"

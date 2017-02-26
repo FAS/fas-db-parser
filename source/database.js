@@ -5,7 +5,7 @@ import jsonFile from 'jsonfile'
 import sort from 'sort-object'
 import logger from './logger'
 import Request from './request'
-import strMapToObj from './utils/map'
+import {strMapToObj} from './utils/map'
 
 const CATALOGURL = '/paging_artikel/B//@'
 const PRODUCTURL = '/web_artikeldetail'

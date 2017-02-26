@@ -5,20 +5,35 @@ intel.config({
     simple: {
       format: '[%(date)s][%(levelname)s] %(name)s: %(message)s',
       colorize: true
+    },
+    file: {
+      format: '[%(date)s][%(levelname)s] %(name)s: %(message)s',
+      colorize: false
     }
   },
   handlers: {
-    terminal: {
+    console: {
+      level: intel.VERBOSE,
       class: intel.handlers.Console,
-      formatter: 'simple',
-      level: intel.INFO
+      formatter: 'simple'
+    },
+    errors: {
+      level: intel.ERROR,
+      class: intel.handlers.File,
+      formatter: 'file',
+      file: './logs/error.log'
+    },
+    warnings: {
+      level: intel.WARN,
+      class: intel.handlers.File,
+      formatter: 'file',
+      file: './logs/warnings.log'
     }
   },
   loggers: {
     klpt: {
-      handlers: ['terminal'],
-      handleExceptions: true,
-      exitOnError: true,
+      level: intel.INFO,
+      handlers: ['console', 'errors', 'warnings'],
       propagate: true
     }
   }

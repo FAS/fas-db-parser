@@ -164,7 +164,7 @@ export default class Database {
       }
       if (this.products.get(product.id)) {
         this.log.warn(`Detected collision for product.id: ${product.id}`)
-        product.id = `${fixedId}~`
+        product.id = `${fixedId}!`
       }
 
       this.products.set(product.id, product)

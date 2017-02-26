@@ -32,7 +32,7 @@ intel.config({
   },
   loggers: {
     klpt: {
-      level: intel.INFO,
+      level: intel.DEBUG,
       handlers: ['console', 'errors', 'warnings'],
       propagate: true
     }

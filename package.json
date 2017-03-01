@@ -42,7 +42,7 @@
     "babel-polyfill": "6.23.0",
     "babel-preset-env": "^1.1.10",
     "snazzy": "6.0.0",
-    "standard": "8.6.0"
+    "standard": "9.0.0"
   },
   "scripts": {
     "prestart": "rm -rf logs build && mkdir logs build && npm run build",

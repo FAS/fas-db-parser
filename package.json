@@ -31,7 +31,7 @@
     "intel": "1.1.2",
     "jsonfile": "2.4.0",
     "natural-sort": "1.0.0",
-    "request": "2.79.0",
+    "request": "2.80.0",
     "request-promise": "4.1.1",
     "sort-object": "3.0.2",
     "striptags": "3.0.1"

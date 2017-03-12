@@ -1,5 +1,5 @@
 import cheerio from 'cheerio'
-import request from 'request-promise'
+import request from 'requestretry'
 import manifest from './../package.json'
 import config from './../config.json'
 
@@ -14,9 +14,11 @@ export default class Request {
       headers: {
         'User-Agent': `${manifest.name} v${manifest.version}`
       },
-      transform: (body) => {
-        return cheerio.load(body)
-      }
+      timeout: 10000,
+      // request-retry options
+      maxAttempts: 10,
+      retryDelay: 10000,
+      retryStrategy: request.RetryStrategies.HTTPOrNetworkError
     }
   }
 
@@ -29,15 +31,11 @@ export default class Request {
     this.options.url = `${config.url}${uri}`
 
     return request(this.options)
-      .then(($) => $)
+      .then((response) => {
+        return cheerio.load(response.body)
+      })
       .catch((err) => {
-        if (err.statusCode) {
-          throw new Error(`Unable to get page content: Error code ${err.statusCode} (page: ${this.options.url})`)
-        } else if (err.cause.code === 'ETIMEDOUT') {
-          throw new Error(`Target server is currently down or not responding (page: ${this.options.url})`)
-        } else {
-          console.log(err)
-        }
+        throw new Error(err)
       })
   }
 }

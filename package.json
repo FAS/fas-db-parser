@@ -31,7 +31,7 @@
     "intel": "1.1.2",
     "jsonfile": "2.4.0",
     "request": "2.81.0",
-    "request-promise": "4.1.1",
+    "requestretry": "1.12.0",
     "sort-object": "3.0.2",
     "striptags": "3.0.1"
   },
@@ -39,7 +39,7 @@
     "babel-cli": "6.23.0",
     "babel-eslint": "7.1.1",
     "babel-polyfill": "6.23.0",
-    "babel-preset-env": "^1.2.1",
+    "babel-preset-env": "1.2.1",
     "snazzy": "6.0.0",
     "standard": "10.0.0-beta.0"
   },
@@ -54,12 +54,15 @@
   },
   "babel": {
     "presets": [
-      ["env", {
-        "targets": {
-          "node": "current"
-        },
-        "debug": true
-      }]
+      [
+        "env",
+        {
+          "targets": {
+            "node": "current"
+          },
+          "debug": true
+        }
+      ]
     ]
   },
   "standard": {

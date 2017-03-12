@@ -1,6 +1,6 @@
 {
   "name": "Kleptomaniac",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Automatic fetching and parsing products from FAS database",
   "homepage": "https://github.com/FAS/fas-db-parser",
   "author": "Mr. Hyde <npm@2bad.me>",
@@ -30,7 +30,6 @@
     "he": "1.1.1",
     "intel": "1.1.2",
     "jsonfile": "2.4.0",
-    "natural-sort": "1.0.0",
     "request": "2.81.0",
     "request-promise": "4.1.1",
     "sort-object": "3.0.2",

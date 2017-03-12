@@ -25,13 +25,13 @@
     "dist"
   ],
   "dependencies": {
-    "bluebird": "3.4.7",
+    "bluebird": "3.5.0",
     "cheerio": "0.22.0",
     "he": "1.1.1",
     "intel": "1.1.2",
     "jsonfile": "2.4.0",
     "natural-sort": "1.0.0",
-    "request": "2.79.0",
+    "request": "2.80.0",
     "request-promise": "4.1.1",
     "sort-object": "3.0.2",
     "striptags": "3.0.1"
@@ -42,7 +42,7 @@
     "babel-polyfill": "6.23.0",
     "babel-preset-env": "^1.1.10",
     "snazzy": "6.0.0",
-    "standard": "8.6.0"
+    "standard": "10.0.0-beta.0"
   },
   "scripts": {
     "prestart": "rm -rf logs build && mkdir logs build && npm run build",

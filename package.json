@@ -45,7 +45,7 @@
   },
   "scripts": {
     "prestart": "rm -rf logs build && mkdir logs build && npm run build",
-    "start": "node --max_old_space_size=4096 build/index.js",
+    "start": "node --max_old_space_size=6144 build/index.js",
     "build": "babel source -d build",
     "test": "standard --verbose | snazzy"
   },

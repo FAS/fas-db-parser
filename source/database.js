@@ -7,13 +7,12 @@ import logger from './logger'
 import Request from './request'
 import {strMapToObj} from './utils/map'
 
-const CATALOGURL = '/paging_artikel/B//@'
+const CATALOGURL = '/paging_artikel/'
 const PRODUCTURL = '/web_artikeldetail'
 const PRODUCTSPERPAGE = 20
 const MAXCONCURRENTREQUESTS = 20
 
 export default class Database {
-
   constructor (id, code, name) {
     this.id = id
     this.code = code
@@ -35,8 +34,12 @@ export default class Database {
     this.log = logger.getLogger(`klpt.${this.code}`)
   }
 
-  _generateCatalogPageUrl (offset = 0) {
-    return `${CATALOGURL}//${offset}//${this.id}`
+  _generateCatalogPageUrl (offset = 0, filter = '', scope = 'B') {
+    // possible scope values:
+    // O - all entries
+    // A - main entries (?)
+    // B - specific to selected locale
+    return `${CATALOGURL}${scope}//${filter}@//${offset}//${this.id}`
   }
 
   _generateProductPageUrl (id) {

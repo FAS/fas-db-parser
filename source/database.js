@@ -5,7 +5,8 @@ import jsonFile from 'jsonfile'
 import sort from 'sort-object'
 import logger from './logger'
 import Request from './request'
-import {strMapToObj} from './utils/map'
+import { strMapToObj } from './utils/map'
+import { mark } from './utils/marker'
 
 const CATALOGURL = '/paging_artikel/'
 const PRODUCTURL = '/web_artikeldetail'
@@ -159,17 +160,8 @@ export default class Database {
       product.amount = $data.find('td:nth-child(4) div').text().trim()
       product.description = he.decode($('table.text td.text').html())
 
-      // normalize product.id and check for collisions
-      const fixedId = Math.abs(product.id)
-      if (product.id !== fixedId) {
-        this.products.delete(product.id)
-        product.id = fixedId
-      }
-      if (this.products.get(product.id)) {
-        this.log.warn(`Detected collision for product.id: ${product.id}`)
-        product.id = `${fixedId}!`
-      }
-
+      // add markers issue markers to product entry
+      product = mark(product)
       this.products.set(product.id, product)
 
       this.log.verbose('Product: %j', product)

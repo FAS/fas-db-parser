@@ -2,19 +2,21 @@ export function mark (record) {
   record.marks = []
 
   Object.entries(filters).forEach(([name, filter]) => {
-    filter(record) || record.marks.push(name)
+    filter(record) && record.marks.push(name)
   })
+
   return record
 }
 
-let filters = {
+// if return true - mark entry
+const filters = {
   'wrong-id': function (record) {
-    return record.id === Math.abs(record.id)
+    return record.id !== Math.abs(record.id)
   },
   'wrong-language': function (record) {
-    return true
+    return false
   },
   'wrong-encoding': function (record) {
-    return true
+    return false
   }
 }

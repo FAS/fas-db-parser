@@ -7,6 +7,7 @@ import logger from './logger'
 import Request from './request'
 import { strMapToObj } from './utils/map'
 import { mark } from './utils/marker'
+import { sanitize } from './utils/sanitizer'
 
 const CATALOGURL = '/paging_artikel/'
 const PRODUCTURL = '/web_artikeldetail'
@@ -160,8 +161,8 @@ export default class Database {
       product.amount = $data.find('td:nth-child(4) div').text().trim()
       product.description = he.decode($('table.text td.text').html())
 
-      // add markers issue markers to product entry
-      product = mark(product)
+      // sanitize and add issue markers to product entry
+      product = mark(sanitize(product))
       this.products.set(product.id, product)
 
       this.log.verbose('Product: %j', product)

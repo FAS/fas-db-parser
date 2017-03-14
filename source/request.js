@@ -4,7 +4,6 @@ import manifest from './../package.json'
 import config from './../config.json'
 
 export default class Request {
-
   constructor () {
     this.options = {
       auth: {

@@ -106,11 +106,11 @@ export default class Database {
 
     this.parsed.catalog.data.forEach(($) => {
       // slice first two and last table since they do not contain data
-      const $tables = $('div > table').slice(2, -1)
+      const $tables = $('div > table').slice(3, -1)
 
       $tables.each((index, element) => {
         let product = {}
-        product.id = $('td > a > b > strong.text', element).text().trim()
+        product.id = $('td strong.text', element).text().trim()
 
         this.products.set(product.id, product)
 
@@ -151,13 +151,13 @@ export default class Database {
 
     this.parsed.products.data.forEach(($) => {
       let product = {}
-      const $data = $('div > table:nth-child(3)')
+      const $data = $('#haupt table:nth-child(5)')
 
-      product.id = $data.find('td:nth-child(1) > b > strong').text().trim()
+      product.id = $data.find('td:nth-child(1) strong').text().trim()
       product.name = strip(he.decode($data.find('td:nth-child(2)').text())).trim()
-      product.price = $data.find('td:nth-child(3) > div').text().trim()
-      product.amount = $data.find('td:nth-child(4) > div').text().trim()
-      product.description = he.decode($('table.text > tr > td > p').html())
+      product.price = $data.find('td:nth-child(3) div').text().trim()
+      product.amount = $data.find('td:nth-child(4) div').text().trim()
+      product.description = he.decode($('table.text td.text').html())
 
       // normalize product.id and check for collisions
       const fixedId = Math.abs(product.id)

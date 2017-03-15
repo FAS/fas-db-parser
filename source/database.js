@@ -18,6 +18,24 @@ const LOCALES = {
   'ru': [4, 'ru', 'Russisch']
 }
 
+let product = {
+  _value: {},
+  get value() {
+    // this.log.verbose('Product: %j', this._value)
+    let v = sanitize(this._value)
+    this._value = {}
+    return v
+  },
+  get id() { return this._value.id },
+
+  set id(v) { this._value.id = v.trim() },
+  set name(v) { this._value.name = v.trim() },
+  set weight(v) { this._value.weight = v.trim() },
+  set price(v) { this._value.price = v.trim() },
+  set amount(v) { this._value.amount = v.trim() },
+  set description(v) { this._value.description = v.trim() },
+}
+
 export default class Database {
   constructor (locale) {
     [this.id, this.code, this.language] = LOCALES[locale]
@@ -118,12 +136,9 @@ export default class Database {
       const $tables = $('div > table').slice(3, -1)
 
       $tables.each((index, element) => {
-        let product = {}
         product.id = $('td strong.text', element).text()
 
-        this.products.set(product.id, product)
-
-        this.log.verbose('Product: %j', product)
+        this.products.set(product.id, product.value)
       })
     })
 
@@ -162,7 +177,6 @@ export default class Database {
     this.log.info('Start parsing product data')
 
     this.parsed.products.data.forEach(($) => {
-      let product = {}
       const $data = $('#haupt table:nth-child(5)')
 
       product.id = $data.find('td:nth-child(1) strong').text()
@@ -172,7 +186,7 @@ export default class Database {
       product.amount = $data.find('td:nth-child(5) div').text()
       product.description = $('table.text td.text').html()
 
-      this.log.verbose('Product: %j', product)
+      this.products.set(product.id, product.value)
     })
 
     this.log.info(`Parsed products total: ${this.products.size}/${this.parsed.products.total}`)

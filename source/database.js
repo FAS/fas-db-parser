@@ -11,12 +11,16 @@ const CATALOG_URL = '/paging_artikel/'
 const PRODUCT_URL = '/web_artikeldetail'
 const PRODUCTS_PER_PAGE = 20
 const MAX_CONCURRENT_REQUESTS = 20
+const LOCALES = {
+  'de': [1, 'de', 'Deutsch'],
+  'en': [2, 'en', 'Englisch'],
+  'fr': [3, 'fr', 'Franzoesisch'],
+  'ru': [4, 'ru', 'Russisch']
+}
 
 export default class Database {
-  constructor (id, code, name) {
-    this.id = id
-    this.code = code
-    this.name = name
+  constructor (locale) {
+    [this.id, this.code, this.language] = LOCALES[locale]
     this.products = new Map()
     this.parsed = {
       catalog: {
@@ -47,7 +51,7 @@ export default class Database {
   }
 
   _generateProductPageUrl (id) {
-    return `${PRODUCT_URL}/${id}/${this.name}`
+    return `${PRODUCT_URL}/${id}/${this.language}`
   }
 
   /**

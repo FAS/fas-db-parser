@@ -20,6 +20,9 @@
     "scrapping",
     "request"
   ],
+  "bin": {
+    "klpt": "build/bin/klpt.js"
+  },
   "files": [
     "lib",
     "dist"
@@ -27,6 +30,7 @@
   "dependencies": {
     "bluebird": "3.5.0",
     "cheerio": "0.22.0",
+    "commander": "^2.9.0",
     "he": "1.1.1",
     "intel": "1.1.2",
     "jsonfile": "2.4.0",

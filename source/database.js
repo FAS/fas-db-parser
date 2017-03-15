@@ -1,5 +1,3 @@
-import he from 'he'
-import strip from 'striptags'
 import Promise from 'bluebird'
 import jsonFile from 'jsonfile'
 import sort from 'sort-object'
@@ -112,7 +110,7 @@ export default class Database {
 
       $tables.each((index, element) => {
         let product = {}
-        product.id = $('td strong.text', element).text().trim()
+        product.id = $('td strong.text', element).text()
 
         this.products.set(product.id, product)
 
@@ -155,16 +153,12 @@ export default class Database {
       let product = {}
       const $data = $('#haupt table:nth-child(5)')
 
-      product.id = $data.find('td:nth-child(1) strong').text().trim()
-      product.name = strip(he.decode($data.find('td:nth-child(2)').text())).trim()
-      product.price = $data.find('td:nth-child(3) div').text().trim()
-      product.amount = $data.find('td:nth-child(4) div').text().trim()
-      product.weight = $data.find('td:nth-child(5) div').text().trim()
-      product.description = he.decode($('table.text td.text').html())
-
-      // sanitize and add issue markers to product entry
-      product = mark(sanitize(product))
-      this.products.set(product.id, product)
+      product.id = $data.find('td:nth-child(1) strong').text()
+      product.name = $data.find('td:nth-child(2)').text()
+      product.weight = $data.find('td:nth-child(3) div').text()
+      product.price = $data.find('td:nth-child(4) div').text()
+      product.amount = $data.find('td:nth-child(5) div').text()
+      product.description = $('table.text td.text').html()
 
       this.log.verbose('Product: %j', product)
     })

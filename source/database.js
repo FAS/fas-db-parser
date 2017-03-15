@@ -159,6 +159,7 @@ export default class Database {
       product.name = strip(he.decode($data.find('td:nth-child(2)').text())).trim()
       product.price = $data.find('td:nth-child(3) div').text().trim()
       product.amount = $data.find('td:nth-child(4) div').text().trim()
+      product.weight = $data.find('td:nth-child(5) div').text().trim()
       product.description = he.decode($('table.text td.text').html())
 
       // sanitize and add issue markers to product entry

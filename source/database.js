@@ -7,10 +7,10 @@ import { strMapToObj } from './utils/map'
 import { mark } from './utils/marker'
 import { sanitize } from './utils/sanitizer'
 
-const CATALOGURL = '/paging_artikel/'
-const PRODUCTURL = '/web_artikeldetail'
-const PRODUCTSPERPAGE = 20
-const MAXCONCURRENTREQUESTS = 20
+const CATALOG_URL = '/paging_artikel/'
+const PRODUCT_URL = '/web_artikeldetail'
+const PRODUCTS_PER_PAGE = 20
+const MAX_CONCURRENT_REQUESTS = 20
 
 export default class Database {
   constructor (id, code, name) {
@@ -39,11 +39,11 @@ export default class Database {
     // O - all entries
     // A - main entries (?)
     // B - specific to selected locale
-    return `${CATALOGURL}${scope}//${filter}@//${offset}//${this.id}`
+    return `${CATALOG_URL}${scope}//${filter}@//${offset}//${this.id}`
   }
 
   _generateProductPageUrl (id) {
-    return `${PRODUCTURL}/${id}/${this.name}`
+    return `${PRODUCT_URL}/${id}/${this.name}`
   }
 
   /**
@@ -74,7 +74,7 @@ export default class Database {
     while (offset < this.parsed.products.total) {
       this.parsed.catalog.pages.push(this._generateCatalogPageUrl(offset))
       // skip to the next page since there is only 20 products per page
-      offset += PRODUCTSPERPAGE
+      offset += PRODUCTS_PER_PAGE
 
       // uncomment for debugging
       // if (offset === 500) break
@@ -95,7 +95,7 @@ export default class Database {
         this.parsed.catalog.data.push($)
         this.log.debug(`Fetched catalog pages: ${this.parsed.catalog.data.length}/${this.parsed.catalog.pages.length}`)
       })
-    }, { concurrency: MAXCONCURRENTREQUESTS })
+    }, { concurrency: MAX_CONCURRENT_REQUESTS })
   }
 
   /**
@@ -118,7 +118,7 @@ export default class Database {
       })
     })
 
-    this.log.info(`Parsed catalog pages: ${Math.floor(this.products.size / PRODUCTSPERPAGE)}/${Math.floor(this.parsed.products.total / PRODUCTSPERPAGE)}`)
+    this.log.info(`Parsed catalog pages: ${Math.floor(this.products.size / PRODUCTS_PER_PAGE)}/${Math.floor(this.parsed.products.total / PRODUCTS_PER_PAGE)}`)
   }
 
   /**
@@ -143,7 +143,7 @@ export default class Database {
         this.parsed.products.data.push($)
         this.log.debug(`Fetched products pages: ${this.parsed.products.data.length}/${this.parsed.products.pages.length}`)
       })
-    }, { concurrency: MAXCONCURRENTREQUESTS })
+    }, { concurrency: MAX_CONCURRENT_REQUESTS })
   }
 
   async _parseProductData () {

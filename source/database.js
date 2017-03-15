@@ -61,7 +61,7 @@ export default class Database {
       this.parsed.products.total = total
       this.log.info(`Total products in database: ${this.parsed.products.total}`)
     } else {
-      this.log.error(new Error('Unable to parse total products amount'))
+      throw new Error('Unable to parse total products amount')
     }
   }
 

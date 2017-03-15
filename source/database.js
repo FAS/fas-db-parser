@@ -34,11 +34,15 @@ export default class Database {
     this.log = logger.getLogger(`klpt.${this.code}`)
   }
 
+  /**
+   * Generate URL for catalog page
+   *
+   * possible scope values:
+   * O - all entries
+   * A - main entries (?)
+   * B - specific to selected locale
+   */
   _generateCatalogPageUrl (offset = 0, filter = '', scope = 'B') {
-    // possible scope values:
-    // O - all entries
-    // A - main entries (?)
-    // B - specific to selected locale
     return `${CATALOG_URL}${scope}//${filter}@//${offset}//${this.id}`
   }
 
@@ -50,6 +54,7 @@ export default class Database {
    * Parse page body to find total number of products in database
    */
   async _getProductsAmount () {
+    // get catalog index page
     const url = this._generateCatalogPageUrl()
     const $ = await this.request.get(url)
     // last table contains div with navigation menu
@@ -84,7 +89,7 @@ export default class Database {
   }
 
   /**
-   * Request every page of catalog
+   * Request catalog pages one by one
    */
   async _getCatalogData () {
     this.log.info('Start fetching catalog data')
@@ -105,7 +110,7 @@ export default class Database {
     this.log.info('Start parsing catalog data')
 
     this.parsed.catalog.data.forEach(($) => {
-      // slice first two and last table since they do not contain data
+      // slice first three and last table since they do not contain data
       const $tables = $('div > table').slice(3, -1)
 
       $tables.each((index, element) => {
@@ -132,7 +137,7 @@ export default class Database {
   }
 
   /**
-   * Request every product page
+   * Request product page one by one
    */
   async _getProductsData () {
     this.log.info('Start fetching products data')
@@ -146,6 +151,9 @@ export default class Database {
     }, { concurrency: MAX_CONCURRENT_REQUESTS })
   }
 
+  /**
+   * Parse product pages and extract data from it
+   */
   async _parseProductData () {
     this.log.info('Start parsing product data')
 

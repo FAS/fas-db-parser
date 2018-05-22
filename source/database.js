@@ -4,7 +4,6 @@ import sort from 'sort-object'
 import logger from './logger'
 import Request from './request'
 import { strMapToObj } from './utils/map'
-import { mark } from './utils/marker'
 import { sanitize } from './utils/sanitizer'
 
 const CATALOG_URL = '/paging_artikel/'
@@ -20,20 +19,20 @@ const LOCALES = {
 
 let product = {
   _value: {},
-  get value() {
+  get value () {
     // this.log.verbose('Product: %j', this._value)
     let v = sanitize(this._value)
     this._value = {}
     return v
   },
-  get id() { return this._value.id },
+  get id () { return this._value.id },
 
-  set id(v) { this._value.id = v.trim() },
-  set name(v) { this._value.name = v.trim() },
-  set weight(v) { this._value.weight = v.trim() },
-  set price(v) { this._value.price = v.trim() },
-  set amount(v) { this._value.amount = v.trim() },
-  set description(v) { this._value.description = v.trim() },
+  set id (v) { this._value.id = v.trim() },
+  set name (v) { this._value.name = v.trim() },
+  set weight (v) { this._value.weight = v.trim() },
+  set price (v) { this._value.price = v.trim() },
+  set amount (v) { this._value.amount = v.trim() },
+  set description (v) { this._value.description = v.trim() }
 }
 
 export default class Database {
@@ -118,10 +117,10 @@ export default class Database {
 
     await Promise.map(this.parsed.catalog.pages, (url) => {
       return this.request.get(url)
-      .then(($) => {
-        this.parsed.catalog.data.push($)
-        this.log.debug(`Fetched catalog pages: ${this.parsed.catalog.data.length}/${this.parsed.catalog.pages.length}`)
-      })
+        .then(($) => {
+          this.parsed.catalog.data.push($)
+          this.log.debug(`Fetched catalog pages: ${this.parsed.catalog.data.length}/${this.parsed.catalog.pages.length}`)
+        })
     }, { concurrency: MAX_CONCURRENT_REQUESTS })
   }
 
@@ -163,10 +162,10 @@ export default class Database {
 
     await Promise.map(this.parsed.products.pages, (url) => {
       return this.request.get(url)
-      .then(($) => {
-        this.parsed.products.data.push($)
-        this.log.debug(`Fetched products pages: ${this.parsed.products.data.length}/${this.parsed.products.pages.length}`)
-      })
+        .then(($) => {
+          this.parsed.products.data.push($)
+          this.log.debug(`Fetched products pages: ${this.parsed.products.data.length}/${this.parsed.products.pages.length}`)
+        })
     }, { concurrency: MAX_CONCURRENT_REQUESTS })
   }
 
@@ -202,9 +201,9 @@ export default class Database {
     jsonFile.writeFileSync(`./db/products.${this.code}.json`, obj, {spaces: 2})
   }
 
-/**
- * Parse database
- */
+  /**
+   * Parse database
+   */
   async parse () {
     this.log.info('Start parsing database')
 

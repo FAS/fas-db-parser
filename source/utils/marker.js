@@ -17,7 +17,7 @@ const filters = {
     return false
   },
   'wrong-encoding': function (record) {
-    const exp = 'Ъ|Ы|УУ|ПП|ММ|ЩО|Оё'
+    // const exp = 'Ъ|Ы|УУ|ПП|ММ|ЩО|Оё'
     return record.name.search() !== -1 || record.description.search() !== -1
   }
 }

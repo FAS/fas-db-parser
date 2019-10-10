@@ -1,7 +1,7 @@
 import cheerio from 'cheerio'
 import request from 'requestretry'
-import manifest from './../package.json'
-import config from './../config.json'
+import manifest from '../package.json'
+import config from '../config.json'
 
 export default class Request {
   constructor () {

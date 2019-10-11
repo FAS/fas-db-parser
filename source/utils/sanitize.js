@@ -19,6 +19,7 @@ const EMPTY_ENTRY_SIGNATURE = {
   description: ''
 }
 
+// @todo Note that it will fail to detect not sanitized entries. No time to fix it.
 const isEmptyData = (id, data) => Object.entries(data)
   .every(([key, value]) => EMPTY_ENTRY_SIGNATURE[key] === value)
 

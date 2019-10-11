@@ -17,7 +17,7 @@ program
   // @todo Not implemented
   // .option('-u, --update', 'parse remote db', false)
   // .option('-m, --mark', 'mark db entries', false)
-  .option('-s, --sanitize', 'sanitize db entries', false)
+  .option('-s, --sanitize', 'sanitize db entries', true)
   .version(pkg.version)
   .parse(process.argv)
 

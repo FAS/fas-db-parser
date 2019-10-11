@@ -1,9 +1,8 @@
-import cheerio from 'cheerio'
-import request from 'requestretry'
-import manifest from '../package.json'
-import config from '../config.json'
+const request = require('requestretry')
+const manifest = require('../package.json')
+const config = require('../config.json')
 
-export default class Request {
+class Request {
   constructor () {
     this.options = {
       auth: {
@@ -28,13 +27,9 @@ export default class Request {
    */
   get (uri) {
     this.options.url = `${config.url}${uri}`
-
     return request(this.options)
-      .then((response) => {
-        return cheerio.load(response.body)
-      })
-      .catch((err) => {
-        throw new Error(err)
-      })
+      .then(({ body }) => body)
   }
 }
+
+module.exports = Request

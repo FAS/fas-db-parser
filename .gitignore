@@ -15,6 +15,9 @@ Icon
 ## Sublime Text
 *.sublime*
 
+## VS Code
+.vscode
+
 ## Node.js
 lib-cov
 *.seed

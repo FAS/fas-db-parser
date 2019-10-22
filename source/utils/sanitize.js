@@ -1,13 +1,32 @@
-const sanitize = (record) => {
+import he from 'he'
+
+export function sanitize (record) {
+  let { name, description } = record
   const blacklist = [
-    '\r\n                    <form action="/4DACTION/web_auswahl_wiederherstellen" method="post" name="auswahl" id="auswahl">\r\n                    </form>\r\n                 '
+    '<span style=\"font-size:9pt\"><span style=\"color:#D81E05;font-weight:bold\">',
+    '<form action="/4DACTION/web_auswahl_wiederherstellen" method="post" name="auswahl" id="auswahl">',
+    '</form>',
+    // this two are somehow different
+    '\r\n                    ',
+    '\r\n                    '
   ]
 
   blacklist.forEach((str) => {
-    record.description = record.description.replace(str, '')
+    description = description.replace(str, '')
   })
 
-  return record
+  description = he.decode(description)
+  name = he.decode(name)
+
+  // brs
+  description = description.replace(/<br\s*[\/]?>/gi, '\\n')
+  name = name.replace(/<br\s*[\/]?>/gi, '\\n')
+  // symbols garbage
+  description = description.replace(/([#*,\s])\1{1,}/gi, '')
+  name = name.replace(/([#*,\s])\1{1,}/gi, '')
+
+
+  return {...record, name, description}
 }
 
 const EMPTY_ENTRY_SIGNATURE = {

@@ -1,32 +1,27 @@
-import he from 'he'
+const he = require('he')
 
-export function sanitize (record) {
-  let { name, description } = record
+const sanitize = (record) => {
   const blacklist = [
     '<span style=\"font-size:9pt\"><span style=\"color:#D81E05;font-weight:bold\">',
     '<form action="/4DACTION/web_auswahl_wiederherstellen" method="post" name="auswahl" id="auswahl">',
-    '</form>',
-    // this two are somehow different
-    '\r\n                    ',
-    '\r\n                    '
+    '</form>'
   ]
 
-  blacklist.forEach((str) => {
-    description = description.replace(str, '')
+  const arr = Object.entries(record).map(([key, value]) => {
+    blacklist.forEach((str) => {
+      value = value.replace(str, '')
+    })
+    // decode entities
+    value = he.decode(value)
+    // brs
+    value = value.replace(/<br\s*[\/]?>/gi, '\\n')
+    // symbols garbage
+    value = value.replace(/\r\n/gi, '')
+    value = value.replace(/([#*,\s])\1{1,}/gi, '')
+    return [key, value]
   })
 
-  description = he.decode(description)
-  name = he.decode(name)
-
-  // brs
-  description = description.replace(/<br\s*[\/]?>/gi, '\\n')
-  name = name.replace(/<br\s*[\/]?>/gi, '\\n')
-  // symbols garbage
-  description = description.replace(/([#*,\s])\1{1,}/gi, '')
-  name = name.replace(/([#*,\s])\1{1,}/gi, '')
-
-
-  return {...record, name, description}
+  return Object.fromEntries(arr)
 }
 
 const EMPTY_ENTRY_SIGNATURE = {

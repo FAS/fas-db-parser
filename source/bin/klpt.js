@@ -1,20 +1,24 @@
 #!/usr/bin/env node
 
-import program from 'commander'
-import pkg from './../../package.json'
-import Kleptomaniac from './../index.js'
+const program = require('commander')
+const pkg = require('../../package.json')
+const Kleptomaniac = require('../index.js')
 
 program
-  .usage('[options] <file>')
+  .usage('')
   .description('FAS DB parsing tool')
-  .option('-p, --path <path>', 'path to file storage folder', './db/')
-  .option('-i, --input <file>', 'use locale db file')
-  .option('-o, --output <file>', 'destination for db file')
-  .option('-l --locale [all|de|en|fr|ru]', 'specify locale to parse', 'all')
-  .option('-u, --update', 'parse remote db', false)
-  .option('-m, --mark', 'mark db entries', false)
-  .option('-s, --sanitize', 'sanitize db entries', false)
+  .option('-s, --start <start>', 'id of the start entry', parseFloat, 0)
+  .option('-e, --end <end>', 'id of the end entry', parseFloat, 1000000)
+  .option('-p, --path <path>', 'path to the storage folder', 'db')
+  // @todo Not implemented
+  // .option('-i, --input <file>', 'use locale db file')
+  // .option('-o, --output <file>', 'destination for db file')
+  .option('-l --locale [deutsch|englisch|franzoesisch|russisch]', 'specify locale to parse', 'deutsch')
+  // @todo Not implemented
+  // .option('-u, --update', 'parse remote db', false)
+  // .option('-m, --mark', 'mark db entries', false)
+  .option('-a, --sanitize <sanitize>', 'sanitize db entries', true)
   .version(pkg.version)
   .parse(process.argv)
 
-Kleptomaniac.init(program)
+Kleptomaniac(program.opts())

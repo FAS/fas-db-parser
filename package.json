@@ -29,31 +29,21 @@
     "dist"
   ],
   "dependencies": {
-    "bluebird": "3.5.5",
     "cheerio": "0.22.0",
-    "commander": "^3.0.0",
-    "he": "1.2.0",
-    "intel": "1.2.0",
-    "jsonfile": "5.0.0",
-    "request": "2.88.0",
-    "requestretry": "4.0.0",
-    "sort-object": "3.0.2",
-    "striptags": "3.1.1"
+    "commander": "^3.0.2",
+    "lodash.range": "^3.2.0",
+    "request": "2.81.0",
+    "requestretry": "1.12.0"
   },
   "devDependencies": {
-    "babel-cli": "6.26.0",
-    "babel-eslint": "10.0.2",
-    "babel-polyfill": "6.26.0",
-    "babel-preset-env": "1.7.0",
-    "esm": "3.2.25",
-    "rimraf": "2.7.1",
-    "snazzy": "8.0.0",
-    "standard": "13.1.0"
+    "babel-eslint": "7.2.0",
+    "babel-polyfill": "6.23.0",
+    "babel-preset-env": "1.3.2",
+    "snazzy": "6.0.0",
+    "standard": "10.0.0"
   },
   "scripts": {
-    "prestart": "rimraf logs build && mkdir logs build && npm run build",
-    "start": "node -r esm source/bin/klpt.js",
-    "build": "babel source -d build",
+    "start": "node source/bin/klpt.js",
     "test": "standard --verbose | snazzy"
   },
   "engines": {

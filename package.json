@@ -32,7 +32,7 @@
     "cheerio": "0.22.0",
     "commander": "^3.0.2",
     "fast-glob": "3.1.0",
-    "graceful-fs": "4.2.2",
+    "graceful-fs": "4.2.4",
     "he": "1.2.0",
     "lodash.range": "^3.2.0",
     "request": "2.88.0",

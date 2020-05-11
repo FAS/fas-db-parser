@@ -43,7 +43,7 @@
     "babel-polyfill": "6.26.0",
     "babel-preset-env": "1.7.0",
     "snazzy": "8.0.0",
-    "standard": "14.3.1"
+    "standard": "14.3.4"
   },
   "scripts": {
     "start": "node source/bin/klpt.js",

@@ -36,7 +36,7 @@
     "he": "1.2.0",
     "lodash.range": "^3.2.0",
     "request": "2.88.0",
-    "requestretry": "4.0.2"
+    "requestretry": "4.1.1"
   },
   "devDependencies": {
     "babel-eslint": "10.0.3",
